@@ -119,8 +119,8 @@
 			isa = PBXGroup;
 			children = (
 				06ED11AD26635F31009233D0 /* EssentialFeedTests.swift */,
-				06ED11AF26635F31009233D0 /* Info.plist */,
 				062005EC2664EE510063BE92 /* RemoteFeedLoaderTests.swift */,
+				06ED11AF26635F31009233D0 /* Info.plist */,
 			);
 			path = EssentialFeedTests;
 			sourceTree = "<group>";
