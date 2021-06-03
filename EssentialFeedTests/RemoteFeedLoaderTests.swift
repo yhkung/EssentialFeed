@@ -9,7 +9,7 @@ import XCTest
 import EssentialFeed
 
 class RemoteFeedLoaderTests: XCTestCase {
-
+    
     func test_init_doesNotRequestDataFromURL() {
         let (_, client) = makeSUT()
         
@@ -31,7 +31,7 @@ class RemoteFeedLoaderTests: XCTestCase {
         
         sut.load { _ in }
         sut.load { _ in }
-     
+        
         XCTAssertEqual(client.requestedURLs, [url, url])
     }
     
@@ -46,7 +46,7 @@ class RemoteFeedLoaderTests: XCTestCase {
     
     func test_load_deliversErrorOnNon200HTTPResponse() {
         let (sut, client) = makeSUT()
-               
+        
         let samples = [199, 201, 300, 400, 500]
         samples.enumerated().forEach { index, code in
             expect(sut, toCompleteWithResult: .failure(.invalidData), when: {
@@ -57,7 +57,7 @@ class RemoteFeedLoaderTests: XCTestCase {
     
     func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
         let (sut, client) = makeSUT()
-    
+        
         expect(sut, toCompleteWithResult: .failure(.invalidData), when: {
             let invalidJSON = Data("invalid json".utf8)
             client.complete(withStatusCode: 200, data: invalidJSON)
@@ -66,7 +66,7 @@ class RemoteFeedLoaderTests: XCTestCase {
     
     func test_load_deliversNoItemsOn200HTTPReponseWithemptyListJSON() {
         let (sut, client) = makeSUT()
-
+        
         expect(sut, toCompleteWithResult: .success([]), when: {
             let emptyListJSON = Data("{ \"items\": [] }".utf8)
             client.complete(withStatusCode: 200, data: emptyListJSON)
