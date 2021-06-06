@@ -47,7 +47,7 @@ class URLSessionHTTPClientTests: XCTestCase {
         
         let sut = URLSessionHTTPClient(session: session)
         
-        let exp = expectation(description: "Wait for url session get")
+        let exp = expectation(description: "Wait for completion")
         sut.get(from: url) { result in
             switch result {
             case let .failure(receivedError as NSError):
