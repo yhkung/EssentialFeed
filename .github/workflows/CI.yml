@@ -1,0 +1,21 @@
+name: Swift
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Select Xcode
+      run: sudo xcode-select -switch /Applications/Xcode_12.4.app
+
+    - name: Build and test
+      run: xcodebuild clean build test -project EssentialFeed.xcodeproj -scheme "CI" CODE_SIGNING_REQUIRED=NO
