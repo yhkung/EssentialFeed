@@ -1,3 +1,3 @@
 # Essential App Case Study
 
-[![Build Status](https://travis-ci.com/yhkung/essential-feed-case-study.svg?branch=main)](https://travis-ci.com/yhkung/essential-feed-case-study)
+[![Swift](https://github.com/yhkung/essential-feed-case-study/actions/workflows/CI.yml/badge.svg)](https://github.com/yhkung/essential-feed-case-study/actions/workflows/CI.yml)
