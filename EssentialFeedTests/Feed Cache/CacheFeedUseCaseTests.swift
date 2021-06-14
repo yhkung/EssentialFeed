@@ -16,7 +16,7 @@ class LocalFeedLoader {
     }
     
     func save(_ items: [FeedItem]) {
-        store.delegateCacheFeed()
+        store.deleteCachedFeed()
     }
 }
 
@@ -24,7 +24,7 @@ class FeedStore {
     var deleteCachedFeedCallCount = 0
     var insertCallCount = 0
     
-    func delegateCacheFeed() {
+    func deleteCachedFeed() {
         deleteCachedFeedCallCount += 1
     }
     
