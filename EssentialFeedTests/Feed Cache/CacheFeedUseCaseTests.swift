@@ -130,7 +130,7 @@ class CacheFeedUseCaseTests: XCTestCase {
         let store = FeedStoreSpy()
         var sut: LocalFeedLoader?
         
-        sut = LocalFeedLoader(store: store, currentDate: { Date() })
+        sut = LocalFeedLoader(store: store, currentDate: Date.init)
         
         var receivedResults = [Error?]()
         sut?.save([uniqueItem()]) { error in
