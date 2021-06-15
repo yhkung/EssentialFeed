@@ -12,12 +12,14 @@ class LocalFeedLoader {
     private let store: FeedStore
     private let currentDate: () -> Date
     
+    typealias SaveResult = Error?
+    
     init(store: FeedStore, currentDate: @escaping () -> Date) {
         self.store = store
         self.currentDate = currentDate
     }
     
-    func save(_ items: [FeedItem], completion: @escaping (Error?) -> Void) {
+    func save(_ items: [FeedItem], completion: @escaping (SaveResult) -> Void) {
         store.deleteCachedFeed { [weak self] error in
             guard let self = self else { return }
             
@@ -29,7 +31,7 @@ class LocalFeedLoader {
         }
     }
     
-    private func cache(_ items: [FeedItem], with completion: @escaping (Error?) -> Void) {
+    private func cache(_ items: [FeedItem], with completion: @escaping (SaveResult) -> Void) {
         store.insert(items, currentDate: currentDate()) { [weak self] error in
             guard self != nil else { return }
             
@@ -119,7 +121,7 @@ class CacheFeedUseCaseTests: XCTestCase {
         
         sut = LocalFeedLoader(store: store, currentDate: { Date() })
         
-        var receivedResults = [Error?]()
+        var receivedResults = [LocalFeedLoader.SaveResult]()
         sut?.save([uniqueItem()]) { error in
             receivedResults.append(error)
         }
@@ -136,7 +138,7 @@ class CacheFeedUseCaseTests: XCTestCase {
         
         sut = LocalFeedLoader(store: store, currentDate: Date.init)
         
-        var receivedResults = [Error?]()
+        var receivedResults = [LocalFeedLoader.SaveResult]()
         sut?.save([uniqueItem()]) { error in
             receivedResults.append(error)
         }
