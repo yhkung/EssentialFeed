@@ -1,19 +1,11 @@
 //
-//  FeedStore.swift
-//  EssentialFeedTests
+//  LocalFeedItem.swift
+//  EssentialFeed
 //
-//  Created by YH Kung on 2021/6/15.
+//  Created by YH Kung on 2021/6/16.
 //
 
 import Foundation
-
-public protocol FeedStore {
-    typealias DeletionCompletion = (Error?) -> Void
-    typealias InsertionCompletion = (Error?) -> Void
-    
-    func deleteCachedFeed(completion: @escaping DeletionCompletion)
-    func insert(_ items: [LocalFeedItem], currentDate: Date, completion: @escaping InsertionCompletion)
-}
 
 public struct LocalFeedItem: Equatable {
     public let id: UUID
