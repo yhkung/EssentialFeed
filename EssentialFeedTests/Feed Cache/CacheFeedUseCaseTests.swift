@@ -140,7 +140,7 @@ class CacheFeedUseCaseTests: XCTestCase {
     
     private func uniqueImageFeed() -> (models: [FeedImage], local: [LocalFeedImage]) {
         let models = [uniqueImage(), uniqueImage()]
-        let local = models.map { LocalFeedImage(id: $0.id, location: $0.location, description: $0.description, imageURL: $0.url) }
+        let local = models.map { LocalFeedImage(id: $0.id, location: $0.location, description: $0.description, url: $0.url) }
         return (models, local)
     }
     
