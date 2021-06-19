@@ -7,21 +7,39 @@
 
 import Foundation
 
+private final class FeedCachePolicy {
+    private let currentDate: () -> Date
+    private let calendar = Calendar(identifier: .gregorian)
+
+    private var maxCacheAgeInDays: Int {
+        return 7
+    }
+    
+    init(currentDate: @escaping () -> Date) {
+        self.currentDate = currentDate
+    }
+        
+    func validate(_ timestamp: Date) -> Bool {
+        guard let maxCacheAge = calendar.date(byAdding: .day, value: maxCacheAgeInDays, to: timestamp) else {
+            return false
+        }
+        return currentDate() < maxCacheAge
+    }
+}
+
+
 public final class LocalFeedLoader {
     private let store: FeedStore
     private let currentDate: () -> Date
-    private let calendar = Calendar(identifier: .gregorian)
+    private let feedCachePolicy: FeedCachePolicy
     
     public typealias SaveResult = Error?
     public typealias LoadResult = LoadFeedResult
     
-    private var maxCacheAgeInDays: Int {
-        return 7
-    }
-        
     public init(store: FeedStore, currentDate: @escaping () -> Date) {
         self.store = store
         self.currentDate = currentDate
+        self.feedCachePolicy = FeedCachePolicy(currentDate: currentDate)
     }
     
     public func save(_ feed: [FeedImage], completion: @escaping (SaveResult) -> Void) {
@@ -45,7 +63,7 @@ public final class LocalFeedLoader {
                 self.store.deleteCachedFeed { _ in }
                 completion(.failure(error))
                 
-            case let .found(feed, timestamp) where self.validate(timestamp):
+            case let .found(feed, timestamp) where self.feedCachePolicy.validate(timestamp):
                 completion(.success(feed.toModels()))
                 
             case .found:
@@ -65,14 +83,6 @@ public final class LocalFeedLoader {
             completion(error)
         }
     }
-    
-    private func validate(_ timestamp: Date) -> Bool {
-        guard let maxCacheAge = calendar.date(byAdding: .day, value: maxCacheAgeInDays, to: timestamp) else {
-            return false
-        }
-        return currentDate() < maxCacheAge
-    }
-    
 }
 
 extension Array where Element == FeedImage {
