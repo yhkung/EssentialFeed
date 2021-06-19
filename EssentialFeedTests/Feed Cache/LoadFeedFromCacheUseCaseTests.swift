@@ -46,7 +46,7 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
         let fixedCurrentDate = Date()
         let nonExpiredTimestamp = fixedCurrentDate.minusMaxFeedCacheAge().adding(seconds: 1)
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
-
+        
         expect(sut, toCompleteWith: .success(feed.models), when: {
             store.completeRetrievalWith(feed: feed.local, timestamp: nonExpiredTimestamp)
         })
@@ -57,7 +57,7 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
         let fixedCurrentDate = Date()
         let expirationTimestamp = fixedCurrentDate.minusMaxFeedCacheAge()
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
-
+        
         expect(sut, toCompleteWith: .success([]), when: {
             store.completeRetrievalWith(feed: feed.local, timestamp: expirationTimestamp)
         })
@@ -68,7 +68,7 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
         let fixedCurrentDate = Date()
         let expiredTimestamp = fixedCurrentDate.minusMaxFeedCacheAge().adding(seconds: -1)
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
-
+        
         expect(sut, toCompleteWith: .success([]), when: {
             store.completeRetrievalWith(feed: feed.local, timestamp: expiredTimestamp)
         })
@@ -97,7 +97,7 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
         let fixedCurrentDate = Date()
         let nonExpiredTimestamp = fixedCurrentDate.minusMaxFeedCacheAge().adding(seconds: 1)
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
-
+        
         sut.load { _ in }
         store.completeRetrievalWith(feed: feed.local, timestamp: nonExpiredTimestamp)
         
@@ -109,7 +109,7 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
         let fixedCurrentDate = Date()
         let expirationTimestamp = fixedCurrentDate.minusMaxFeedCacheAge()
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
-
+        
         sut.load { _ in }
         store.completeRetrievalWith(feed: feed.local, timestamp: expirationTimestamp)
         
@@ -121,7 +121,7 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
         let fixedCurrentDate = Date()
         let expiredTimestamp = fixedCurrentDate.minusMaxFeedCacheAge()
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
-
+        
         sut.load { _ in }
         store.completeRetrievalWith(feed: feed.local, timestamp: expiredTimestamp)
         
@@ -142,7 +142,7 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
     }
     
     // MARK: - Helpers
-        
+    
     private func makeSUT(currentDate: @escaping () -> Date = Date.init, file: StaticString = #file, line: UInt = #line) -> (sut: LocalFeedLoader, store: FeedStoreSpy) {
         let store = FeedStoreSpy()
         let sut = LocalFeedLoader(store: store, currentDate: currentDate)
@@ -157,12 +157,12 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
     
     private func expect(_ sut: LocalFeedLoader, toCompleteWith expectedResult: LocalFeedLoader.LoadResult, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
         let exp = expectation(description: "Wait for load completion")
-
+        
         sut.load() { receivedResult in
             switch (receivedResult, expectedResult) {
             case let (.success(receivedImages), .success(expectedImages)):
                 XCTAssertEqual(receivedImages, expectedImages, file: file, line: line)
-            
+                
             case let (.failure(receivedError), .failure(expectedError)):
                 XCTAssertEqual(receivedError as NSError?, expectedError as NSError?)
             default:
@@ -179,7 +179,7 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
     private func uniqueImage() -> FeedImage {
         return FeedImage(id: UUID(), location: "any", description: "any", url: anyURL())
     }
- 
+    
     private func uniqueImageFeed() -> (models: [FeedImage], local: [LocalFeedImage]) {
         let models = [uniqueImage(), uniqueImage()]
         let local = models.map { LocalFeedImage(id: $0.id, location: $0.location, description: $0.description, url: $0.url) }
