@@ -14,7 +14,7 @@ class CodableFeedStore {
         let timestamp: Date
         
         var localFeed: [LocalFeedImage] {
-            return feed.map { LocalFeedImage(id: $0.id, location: $0.location, description: $0.description, url: $0.url) }
+            return feed.map { LocalFeedImage(id: $0.id, description: $0.description, location: $0.location, url: $0.url) }
         }
     }
     

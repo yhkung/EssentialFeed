@@ -64,13 +64,13 @@ public final class LocalFeedLoader {
 
 extension Array where Element == FeedImage {
     func toLocal() -> [LocalFeedImage] {
-        return map { LocalFeedImage(id: $0.id, location: $0.location, description: $0.description, url: $0.url) }
+        return map { LocalFeedImage(id: $0.id, description: $0.description, location: $0.location, url: $0.url) }
     }
 }
 
 extension Array where Element == LocalFeedImage {
     func toModels() -> [FeedImage] {
-        return map { FeedImage(id: $0.id, location: $0.location, description: $0.description, url: $0.url) }
+        return map { FeedImage(id: $0.id, description: $0.description, location: $0.location, url: $0.url) }
     }
 }
 

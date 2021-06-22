@@ -44,7 +44,7 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
     func test_load_delieversCachedImagesOnNonExpiredCache() {
         let feed = uniqueImageFeed()
         let fixedCurrentDate = Date()
-        let nonExpiredTimestamp = fixedCurrentDate.minusMaxFeedCacheAge().adding(seconds: 1)
+        let nonExpiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: 1)
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
         
         expect(sut, toCompleteWith: .success(feed.models), when: {
@@ -55,7 +55,7 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
     func test_load_deliversNoImagesOnCacheExpiration() {
         let feed = uniqueImageFeed()
         let fixedCurrentDate = Date()
-        let expirationTimestamp = fixedCurrentDate.minusMaxFeedCacheAge()
+        let expirationTimestamp = fixedCurrentDate.minusFeedCacheMaxAge()
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
         
         expect(sut, toCompleteWith: .success([]), when: {
@@ -66,7 +66,7 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
     func test_load_deliversNoImagesOnExpiredCache() {
         let feed = uniqueImageFeed()
         let fixedCurrentDate = Date()
-        let expiredTimestamp = fixedCurrentDate.minusMaxFeedCacheAge().adding(seconds: -1)
+        let expiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: -1)
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
         
         expect(sut, toCompleteWith: .success([]), when: {
@@ -95,7 +95,7 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
     func test_load_doesNotDeleteCacheOnNonExpiredCache() {
         let feed = uniqueImageFeed()
         let fixedCurrentDate = Date()
-        let nonExpiredTimestamp = fixedCurrentDate.minusMaxFeedCacheAge().adding(seconds: 1)
+        let nonExpiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: 1)
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
         
         sut.load { _ in }
@@ -107,7 +107,7 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
     func test_load_deletesCacheOnExpirationCache() {
         let feed = uniqueImageFeed()
         let fixedCurrentDate = Date()
-        let expirationTimestamp = fixedCurrentDate.minusMaxFeedCacheAge()
+        let expirationTimestamp = fixedCurrentDate.minusFeedCacheMaxAge()
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
         
         sut.load { _ in }
@@ -119,7 +119,7 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
     func test_load_deletesCacheOnExpiredCache() {
         let feed = uniqueImageFeed()
         let fixedCurrentDate = Date()
-        let expiredTimestamp = fixedCurrentDate.minusMaxFeedCacheAge()
+        let expiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge()
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
         
         sut.load { _ in }
@@ -174,39 +174,5 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
         
         action()
         wait(for: [exp], timeout: 1.0)
-    }
-    
-    private func uniqueImage() -> FeedImage {
-        return FeedImage(id: UUID(), location: "any", description: "any", url: anyURL())
-    }
-    
-    private func uniqueImageFeed() -> (models: [FeedImage], local: [LocalFeedImage]) {
-        let models = [uniqueImage(), uniqueImage()]
-        let local = models.map { LocalFeedImage(id: $0.id, location: $0.location, description: $0.description, url: $0.url) }
-        return (models, local)
-    }
-    
-    private func anyURL() -> URL {
-        return URL(string: "http://any-url.com")!
-    }
-}
-
-private extension Date {
-    func adding(days: Int) -> Date {
-        return Calendar(identifier: .gregorian).date(byAdding: .day, value: days, to: self)!
-    }
-    
-    func adding(seconds: TimeInterval) -> Date {
-        return self + seconds
-    }
-}
-
-private extension Date {
-    func minusMaxFeedCacheAge() -> Date {
-        return adding(days: -maxFeedCacheAge)
-    }
-    
-    private var maxFeedCacheAge: Int {
-        return 7
     }
 }
