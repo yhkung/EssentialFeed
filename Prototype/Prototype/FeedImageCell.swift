@@ -10,6 +10,6 @@ import UIKit
 final class FeedImageCell: UITableViewCell {
     @IBOutlet weak var locationContainer: UIStackView!
     @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet weak var imageContainer: UIView!
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var feedImageView: UIImageView!
+    @IBOutlet weak var descriptionLabel: UILabel!    
 }
