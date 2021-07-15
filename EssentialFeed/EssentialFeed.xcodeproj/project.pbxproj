@@ -191,6 +191,7 @@
 				F8472554269EF98E009369FD /* EssentialFeediOS */,
 				F847255F269EF98F009369FD /* EssentialFeediOSTests */,
 				080EDEF221B6DA7E00813479 /* Products */,
+				F8C2E35A26A04F0500E1BC78 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -367,6 +368,13 @@
 				F87F044B268B2E6C00521B87 /* ManagedFeedImage.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		F8C2E35A26A04F0500E1BC78 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
