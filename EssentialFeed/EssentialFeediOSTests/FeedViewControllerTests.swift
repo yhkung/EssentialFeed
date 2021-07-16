@@ -81,7 +81,7 @@ final class FeedViewControllerTests: XCTestCase {
     func test_userInitiatedFeedLoad_showsLoadingIndicator() {
         let (sut, _) = makeSUT()
 
-        sut.simulatePullToRefresh()
+        sut.simulateUserInitiatedFeedReload()
 
         XCTAssertTrue(sut.isShowingLoadingIndicator)
     }
@@ -89,7 +89,7 @@ final class FeedViewControllerTests: XCTestCase {
     func test_userInitiatedFeedLoad_hidesLoadingIndicatorOnLoaderCompletion() {
         let (sut, loader) = makeSUT()
 
-        sut.simulatePullToRefresh()
+        sut.simulateUserInitiatedFeedReload()
         loader.completeFeedLoading()
 
         XCTAssertFalse(sut.isShowingLoadingIndicator)
@@ -122,7 +122,7 @@ final class FeedViewControllerTests: XCTestCase {
 }
 
 private extension FeedViewController {
-    func simulatePullToRefresh() {
+    func simulateUserInitiatedFeedReload() {
         refreshControl?.simulatePullToRefresh()
     }
 
