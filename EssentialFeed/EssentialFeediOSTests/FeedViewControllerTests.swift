@@ -89,12 +89,12 @@ final class FeedViewControllerTests: XCTestCase {
     }
     
     class LoaderSpy: FeedLoader {
-        private(set) var completions = [(LoadFeedResult) -> Void]()
+        private(set) var completions = [(FeedLoader.Result) -> Void]()
         var loadCallCount: Int {
             return completions.count
         }
         
-        func load(completion: @escaping (LoadFeedResult) -> Void) {
+        func load(completion: @escaping (FeedLoader.Result) -> Void) {
             completions.append(completion)
         }
         
