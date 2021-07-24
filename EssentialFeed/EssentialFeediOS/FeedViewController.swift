@@ -10,7 +10,8 @@ import UIKit
 import EssentialFeed
 
 public protocol FeedImageDataLoader {
-    func loadImageData(frmo url: URL)
+    func loadImageData(from url: URL)
+    func cancelImageDataLoad(from url: URL)
 }
 
 public final class FeedViewController: UITableViewController {
@@ -53,8 +54,13 @@ public final class FeedViewController: UITableViewController {
         cell.locationContainer.isHidden = (cellModel.location == nil)
         cell.locationLabel.text = cellModel.location
         cell.descriptionLabel.text = cellModel.description
-        imageLoader?.loadImageData(frmo: cellModel.url)
+        imageLoader?.loadImageData(from: cellModel.url)
         return cell
+    }
+
+    public override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let cellModel = tableModel[indexPath.row]
+        imageLoader?.cancelImageDataLoad(from: cellModel.url)
     }
 
 }
