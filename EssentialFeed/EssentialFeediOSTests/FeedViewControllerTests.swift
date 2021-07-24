@@ -86,7 +86,7 @@ final class FeedViewControllerTests: XCTestCase {
         XCTAssertEqual(loader.loadedImageURLs, [], "Expected no image URL requests until views become visible")
 
         sut.simulateFeedImageViewVisible(at: 0)
-             XCTAssertEqual(loader.loadedImageURLs, [image0.url], "Expected first image URL request once first view becomes visible")
+        XCTAssertEqual(loader.loadedImageURLs, [image0.url], "Expected first image URL request once first view becomes visible")
 
         sut.simulateFeedImageViewVisible(at: 1)
         XCTAssertEqual(loader.loadedImageURLs, [image0.url, image1.url], "Expected second image URL request once second view also becomes visible")
@@ -103,7 +103,7 @@ final class FeedViewControllerTests: XCTestCase {
         XCTAssertEqual(loader.cancelledImageURLs, [], "Expected no cancelled image URL requests until image is not visible")
 
         sut.simulateFeedImageViewNotVisible(at: 0)
-             XCTAssertEqual(loader.cancelledImageURLs, [image0.url], "Expected one cancelled image URL request once first image is not visible")
+        XCTAssertEqual(loader.cancelledImageURLs, [image0.url], "Expected one cancelled image URL request once first image is not visible")
 
         sut.simulateFeedImageViewNotVisible(at: 1)
         XCTAssertEqual(loader.cancelledImageURLs, [image0.url, image1.url], "Expected two cancelled image URL request once second image is also not visible anymore")
@@ -176,12 +176,16 @@ final class FeedViewControllerTests: XCTestCase {
         private(set) var loadedImageURLs = [URL]()
         private(set) var cancelledImageURLs = [URL]()
 
-        func loadImageData(from url: URL) {
-            loadedImageURLs.append(url)
+        private struct TasksSpy: FeedImageDataLoaderTask {
+            let cancelCallback: () -> Void
+            func cancel() {
+                cancelCallback()
+            }
         }
 
-        func cancelImageDataLoad(from url: URL) {
-            cancelledImageURLs.append(url)
+        func loadImageData(from url: URL) -> FeedImageDataLoaderTask {
+            loadedImageURLs.append(url)
+            return TasksSpy { [weak self] in self?.cancelledImageURLs.append(url) }
         }
     }
 }
