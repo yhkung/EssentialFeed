@@ -117,18 +117,18 @@ final class FeedViewControllerTests: XCTestCase {
         sut.loadViewIfNeeded()
         loader.completeFeedLoading(with: [image0, image1], at: 0)
 
-        let view1 = sut.simulateFeedImageViewVisible(at: 0)
-        let view2 = sut.simulateFeedImageViewVisible(at: 1)
-        XCTAssertEqual(view1?.isShowingLoadingIndicator, true, "Expected loading indicator for first view while loading first image")
-        XCTAssertEqual(view2?.isShowingLoadingIndicator, true, "Expected loading indicator for second view while loading second image")
+        let view0 = sut.simulateFeedImageViewVisible(at: 0)
+        let view1 = sut.simulateFeedImageViewVisible(at: 1)
+        XCTAssertEqual(view0?.isShowingLoadingIndicator, true, "Expected loading indicator for first view while loading first image")
+        XCTAssertEqual(view1?.isShowingLoadingIndicator, true, "Expected loading indicator for second view while loading second image")
 
         loader.completeImageLoading(at: 0)
-        XCTAssertEqual(view1?.isShowingLoadingIndicator, false, "Expected no loading indicator for first view once first image loading completes successfully")
-        XCTAssertEqual(view2?.isShowingLoadingIndicator, true, "Expected loading indicator for second view while loading second image")
+        XCTAssertEqual(view0?.isShowingLoadingIndicator, false, "Expected no loading indicator for first view once first image loading completes successfully")
+        XCTAssertEqual(view1?.isShowingLoadingIndicator, true, "Expected loading indicator for second view while loading second image")
 
         loader.completeImageLoading(at: 1)
-        XCTAssertEqual(view1?.isShowingLoadingIndicator, false, "Expected no loading indicator for first view once first image loading completes successfully")
-        XCTAssertEqual(view2?.isShowingLoadingIndicator, false, "Expected no loading indicator for second view once second image loading completes successfully")
+        XCTAssertEqual(view0?.isShowingLoadingIndicator, false, "Expected no loading indicator for first view once first image loading completes successfully")
+        XCTAssertEqual(view1?.isShowingLoadingIndicator, false, "Expected no loading indicator for second view once second image loading completes successfully")
     }
 
     func test_feedImageView_rendersImageLoadedFromURL() {
