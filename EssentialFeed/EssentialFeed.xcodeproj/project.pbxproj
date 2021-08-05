@@ -372,8 +372,7 @@
 			isa = PBXGroup;
 			children = (
 				F8472556269EF98E009369FD /* Info.plist */,
-				F87B2A2726BBF60F0066071E /* Controllers */,
-				F87B2A2626BBF6090066071E /* Views */,
+				F87B2A3026BBF85F0066071E /* Feed UI */,
 			);
 			path = EssentialFeediOS;
 			sourceTree = "<group>";
@@ -415,6 +414,15 @@
 				F8E2C9F126A58ACD00321D66 /* FeedViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		F87B2A3026BBF85F0066071E /* Feed UI */ = {
+			isa = PBXGroup;
+			children = (
+				F87B2A2726BBF60F0066071E /* Controllers */,
+				F87B2A2626BBF6090066071E /* Views */,
+			);
+			path = "Feed UI";
 			sourceTree = "<group>";
 		};
 		F87F0444268B2D4E00521B87 /* Infrastructure */ = {
