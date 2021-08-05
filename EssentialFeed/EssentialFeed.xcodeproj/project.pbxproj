@@ -46,6 +46,8 @@
 		F86753F92687376A00D81630 /* XCTestCase+FailableRetrieveFeedStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86753F82687376A00D81630 /* XCTestCase+FailableRetrieveFeedStoreSpecs.swift */; };
 		F86753FB268737FF00D81630 /* XCTestCase+FailableInsertFeedStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86753FA268737FF00D81630 /* XCTestCase+FailableInsertFeedStoreSpecs.swift */; };
 		F86753FD2687387000D81630 /* XCTestCase+FailableDeleteFeedStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86753FC2687387000D81630 /* XCTestCase+FailableDeleteFeedStoreSpecs.swift */; };
+		F87B2A2126BBF4EE0066071E /* UIRefreshControl+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87B2A2026BBF4EE0066071E /* UIRefreshControl+TestHelpers.swift */; };
+		F87B2A2326BBF5060066071E /* UIButton+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87B2A2226BBF5060066071E /* UIButton+TestHelpers.swift */; };
 		F87F0448268B2DDE00521B87 /* CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87F0447268B2DDE00521B87 /* CoreDataHelpers.swift */; };
 		F87F044A268B2E5400521B87 /* ManagedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87F0449268B2E5400521B87 /* ManagedCache.swift */; };
 		F87F044C268B2E6C00521B87 /* ManagedFeedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87F044B268B2E6C00521B87 /* ManagedFeedImage.swift */; };
@@ -154,6 +156,8 @@
 		F86753F82687376A00D81630 /* XCTestCase+FailableRetrieveFeedStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FailableRetrieveFeedStoreSpecs.swift"; sourceTree = "<group>"; };
 		F86753FA268737FF00D81630 /* XCTestCase+FailableInsertFeedStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FailableInsertFeedStoreSpecs.swift"; sourceTree = "<group>"; };
 		F86753FC2687387000D81630 /* XCTestCase+FailableDeleteFeedStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FailableDeleteFeedStoreSpecs.swift"; sourceTree = "<group>"; };
+		F87B2A2026BBF4EE0066071E /* UIRefreshControl+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRefreshControl+TestHelpers.swift"; sourceTree = "<group>"; };
+		F87B2A2226BBF5060066071E /* UIButton+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+TestHelpers.swift"; sourceTree = "<group>"; };
 		F87F0447268B2DDE00521B87 /* CoreDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelpers.swift; sourceTree = "<group>"; };
 		F87F0449268B2E5400521B87 /* ManagedCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedCache.swift; sourceTree = "<group>"; };
 		F87F044B268B2E6C00521B87 /* ManagedFeedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedFeedImage.swift; sourceTree = "<group>"; };
@@ -418,6 +422,8 @@
 			isa = PBXGroup;
 			children = (
 				F8EBCB6D26BAF87F0015BDC5 /* UIImage+TestHelpers.swift */,
+				F87B2A2026BBF4EE0066071E /* UIRefreshControl+TestHelpers.swift */,
+				F87B2A2226BBF5060066071E /* UIButton+TestHelpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -736,6 +742,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8C2E35926A04B8400E1BC78 /* FeedViewControllerTests.swift in Sources */,
+				F87B2A2326BBF5060066071E /* UIButton+TestHelpers.swift in Sources */,
+				F87B2A2126BBF4EE0066071E /* UIRefreshControl+TestHelpers.swift in Sources */,
 				F8C2E36026A0500900E1BC78 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				F8EBCB6E26BAF87F0015BDC5 /* UIImage+TestHelpers.swift in Sources */,
 			);
